@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>todo list</title>
+
+  <link rel="stylesheet" href="/styles/global.css">
+  <link rel="stylesheet" href="/styles/icons.css">
+  <link rel="stylesheet" href="/styles/app.css">
+
+  <script defer src="/core/exportEnum.js"></script>
+  <script defer src="/core/Utils.js"></script>
+  <script defer src="/core/StorageDriver.js"></script>
+  <script defer src="/core/Storage.js"></script>
+
+  <script defer src="/components/Calendar.js"></script>
+  <script defer src="/components/List.js"></script>
+  <script defer src="/components/Task.js"></script>
+
+  <script defer src="/init.js"></script>
+
+</head>
+<body>
+
+
+<div class="container-app js-app-root">
+  <div class="js-app-date"></div>
+  <div class="container-app-list">
+    <div class="js-app-list"></div>
+  </div>
+  <form class="container-app-add js-app-add">
+    <input type="text" class="b-add-field js-add-field" placeholder="Name new task" required>
+    <button class="b-add-submit" type="submit">Add</button>
+  </form>
+</div>
+
+
+</body>
+</html>

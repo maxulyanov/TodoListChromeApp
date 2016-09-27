@@ -1,0 +1,93 @@
+
+@font-face {
+  font-family: Icons;
+  src: url(../fonts/icons.eot);
+  src: url(../fonts/icons.eot?#iefix) format('embedded-opentype'),
+  url(../fonts/icons.woff2) format('woff2'),
+  url(../fonts/icons.woff) format('woff'),
+  url(../fonts/icons.ttf) format('truetype'),
+  url(../fonts/icons.svg#icons) format('svg');
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+}
+
+i.icon {
+  display: inline-block;
+  opacity: 1;
+  margin: 0 .25rem 0 0;
+  width: 1.18em;
+  height: 1em;
+  font-family: Icons;
+  font-style: normal;
+  font-weight: 400;
+  text-decoration: inherit;
+  text-align: center;
+  font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden
+}
+
+i.icon:before {
+  background: 0 0!important
+}
+
+i.icon.loading {
+  height: 1em;
+  line-height: 1;
+  -webkit-animation: icon-loading 2s linear infinite;
+  animation: icon-loading 2s linear infinite
+}
+
+@-webkit-keyframes icon-loading {
+  from {
+    -webkit-transform: rotate(0);
+    transform: rotate(0)
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg)
+  }
+}
+
+@keyframes icon-loading {
+  from {
+    -webkit-transform: rotate(0);
+    transform: rotate(0)
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg)
+  }
+}
+
+i.emphasized.icon,i.icon.active,i.icon.hover {
+  opacity: 1!important
+}
+
+i.disabled.icon {
+  opacity: .45!important
+}
+i.icon.angle.left:before {
+  content: "\f104"
+}
+
+i.icon.angle.right:before {
+  content: "\f105"
+}
+
+i.icon.smile:before {
+  content: "\f118"
+}
+
+i.icon.frown:before {
+  content: "\f119"
+}
+
+i.icon.meh:before {
+  content: "\f11a"
+}

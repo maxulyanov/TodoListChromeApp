@@ -1,0 +1,19 @@
+{
+  "name": "Todo List",
+  "description": "description..",
+  "version": "0.1",
+
+  "permissions": [
+    "storage",
+    "unlimitedStorage"
+  ],
+
+
+  "browser_action": {
+    "default_icon": "img/icon.png",
+    "default_title": "Todo List",
+    "default_popup": "template/popup.html"
+  },
+
+  "manifest_version": 2
+}

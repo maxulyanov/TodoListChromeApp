@@ -1,0 +1,151 @@
+.container-app {
+  width: 340px;
+  position: relative;
+}
+.b-weekday {
+  padding: 10px 15px 2px 15px;
+  font-size: 1.4rem;
+  text-align: center;
+}
+.b-date {
+  text-align: center;
+  font-size: 0.85rem;
+}
+.b-calendar-control.icon {
+  margin: 0;
+  position: absolute;
+  top: 20px;
+  font-size: 1.8rem;
+  color: #616473;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.b-calendar-control.icon:hover {
+  color: #00CE6A;
+  transition: 0.3s;
+}
+.b-calendar-control.icon.is-next {
+  right: 0;
+}
+.b-calendar-control.icon.is-prev {
+  left: 0;
+}
+.container-app-list-inner {
+  max-height: 340px;
+  overflow-y: auto;
+}
+.container-app-stats {
+  margin: 5px 15px 0 15px;
+  padding: 7px 0px;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #D9DADF;
+  text-align: right;
+}
+.b-stats {
+  display: inline-block;
+}
+.b-empty-message {
+  padding: 15px 15px 0 15px;
+  font-size: 1rem;
+}
+.b-task {
+  margin: 5px 0;
+  padding: 7px 50px 7px 15px;
+  position: relative;
+  cursor: pointer;
+}
+.b-task:hover {
+  background: #f3f3f3;
+}
+.b-task:hover .task__delete {
+  display: inline;
+}
+.b-task .task__title {
+  display: inline;
+  font-size: 1rem;
+  color: #616473;
+}
+.b-task .task__icon {
+  position: absolute;
+  top: 50%;
+  margin-top: -11.5px;
+  right: 0;
+  font-size: 1.25rem;
+  color: #D9DADF;
+}
+.b-task .task__icon:before {
+  content: "\f11a";
+}
+.b-task .task__delete {
+  display: none;
+  margin-left: 5px;
+  position: relative;
+  top: -1px;
+  font-size: 0.75em;
+  text-decoration: underline;
+  color: #F14541;
+}
+.b-task .task__delete:hover {
+  text-decoration: none;
+}
+.b-task.is-done .task__title {
+  color: #D9DADF;
+  text-decoration: line-through;
+}
+.b-task.is-done .task__icon {
+  color: #00CE6A;
+}
+.b-task.is-done .task__icon:before {
+  content: "\f118";
+}
+.b-task.is-over-time .task__icon:before {
+  content: "\f119";
+}
+.container-app-add {
+  padding: 5px 15px 15px 15px;
+}
+.b-add-field {
+  display: block;
+  width: 100%;
+  padding: 8px 0;
+  font-size: 16px;
+  line-height: 1.2em;
+  font-family: Arial, sans-serif;
+  border: 0;
+  border-bottom: 1px solid #D9DADF;
+  outline: 0;
+  transition: 0.3s;
+}
+.b-add-field:focus {
+  border-bottom-color: #00CE6A;
+  transition: 0.3s;
+}
+.b-add-submit {
+  display: block;
+  width: 120px;
+  margin: 15px auto 0;
+  padding: 8px 0;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  background: #00CE6A;
+  color: #FFF;
+  border: 0;
+  outline: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+  transition: 0.3s;
+}
+.b-add-submit:hover {
+  transition: 0.3s;
+  background: #00b55d;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
