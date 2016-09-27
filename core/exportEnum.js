@@ -16,10 +16,10 @@
  * @param name
  */
 function exportEnum(en, name) {
-	let App = window.App;
-	if (App == null) {
-		window.App = App = {};
-	}
+    let App = window.App;
+    if (App == null) {
+        window.App = App = {};
+    }
 
-	App[name] = en;
+    App[name] = en;
 }

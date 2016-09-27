@@ -13,71 +13,71 @@
 (() => {
 
 
-	const storage = chrome.storage.local;
+    const storage = chrome.storage.local;
 
 
-	class StorageDriver {
+    class StorageDriver {
 
 
-		/**
-		 *
-		 * @param key
-		 * @param value
-		 */
-		static set(key, value) {
-			if(!value) {
-				StorageDriver.log('I can not save! Value empty!', 'error');
-				return;
-			}
-			storage.set({[key]: value}, ()=> {
-				StorageDriver.log('Saved!', 'info');
-			});
-		}
+        /**
+         *
+         * @param key
+         * @param value
+         */
+        static set(key, value) {
+            if (!value) {
+                StorageDriver.log('I can not save! Value empty!', 'error');
+                return;
+            }
+            storage.set({[key]: value}, () => {
+                StorageDriver.log('Saved!', 'info');
+            });
+        }
 
 
-		/**
-		 *
-		 * @param key
-		 * @param callback
-		 */
-		static get(key, callback) {
-			storage.get(key, function(data) {
-				if (data[key]) {
-					StorageDriver.log('Get success', 'info');
-					callback(data[key]);
-				}
-				else {
-					callback({});
-				}
-			});
-		}
+        /**
+         *
+         * @param key
+         * @param callback
+         */
+        static get(key, callback) {
+            storage.get(key, function (data) {
+                if (data[key]) {
+                    StorageDriver.log('Get success', 'info');
+                    callback(data[key]);
+                }
+                else {
+                    callback({});
+                }
+            });
+        }
 
 
-		/**
-		 *
-		 * @param key
-		 */
-		static remove(key) {
-			storage.remove(key, function() {
-				StorageDriver.log('Remove', 'info');
-			});
-		}
+        /**
+         *
+         * @param key
+         */
+        static remove(key) {
+            storage.remove(key, function () {
+                StorageDriver.log('Remove', 'info');
+            });
+        }
 
 
-		/**
-		 *
-		 * @param message
-		 * @param type
-		 */
-		static log(message, type) {
-			console[type](message);
-		}
+        /**
+         *
+         * @param message
+         * @param type
+         */
+        static log(message, type) {
+            console[type](message);
+        }
 
 
-	}
+    }
 
 
-	exportEnum(StorageDriver, 'StorageDriver');
+    exportEnum(StorageDriver, 'StorageDriver');
 
 
 })();
