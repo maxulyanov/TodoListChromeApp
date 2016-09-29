@@ -1,10 +1,16 @@
 /**
  * Created by PhpStorm.
  * Author: 1
- * Project: todo list
+ * Project: TodoListChromeApp
  * Date:  28.09.2016
  * Time: 0:06
  */
+
+
+import config from './config/';
+import Calendar from './components/Calendar';
+import List from './components/List';
+import Storage from './storage/Storage';
 
 
 'use strict';
@@ -22,9 +28,8 @@
 
 
     // Init important components
-    let calendar = window['calendar'] = new App.Calendar(appDateDOM);
+    let calendar = new Calendar(appDateDOM);
     let list = null;
-    const nameKeyCurrentDay = 'appKeyCurrentDate';
 
 
     startApp();
@@ -37,7 +42,7 @@
             title: appCreateFieldDOM.value
         });
         appCreateFieldDOM.value = '';
-    })
+    });
 
 
 
@@ -52,12 +57,12 @@
      *
      */
     function startApp() {
-        window[nameKeyCurrentDay] = calendar.createKeyForStorage();
+        window[config.currentDate] = calendar.createKeyForStorage();
         calendar.render();
-        App.Storage.createStructure();
+        Storage.createStructure();
 
         appListDOM.innerHTML = '';
-        list = new App.List(appListDOM);
+        list = new List(appListDOM);
         list.fillList();
     }
 

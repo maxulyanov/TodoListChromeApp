@@ -1,7 +1,7 @@
 /**
  * Created by PhpStorm.
  * Author: 1
- * Project: todo list
+ * Project: TodoListChromeApp
  * Date:  28.09.2016
  * Time: 0:07
  */

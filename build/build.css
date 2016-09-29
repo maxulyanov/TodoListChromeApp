@@ -1,3 +1,25 @@
+@import 'https://fonts.googleapis.com/css?family=Ubuntu+Condensed&subset=cyrillic-ext';
+html {
+  font-size: 19px;
+}
+body {
+  font-family: 'Ubuntu Condensed', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #616473;
+}
+body * {
+  box-sizing: border-box;
+}
+::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+  background: #efefef;
+}
+::-webkit-scrollbar-thumb {
+  background: #D9DADF;
+  -webkit-border-radius: 5px;
+}
 .container-app {
   width: 340px;
   position: relative;
@@ -18,10 +40,12 @@
   font-size: 1.8rem;
   color: #616473;
   cursor: pointer;
+  -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 .b-calendar-control.icon:hover {
   color: #00CE6A;
+  -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 .b-calendar-control.icon.is-next {
@@ -114,10 +138,12 @@
   border: 0;
   border-bottom: 1px solid #D9DADF;
   outline: 0;
+  -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 .b-add-field:focus {
   border-bottom-color: #00CE6A;
+  -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 .b-add-submit {
@@ -135,11 +161,21 @@
   border-radius: 30px;
   cursor: pointer;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+  -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 .b-add-submit:hover {
+  -webkit-transition: 0.3s;
   transition: 0.3s;
   background: #00b55d;
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 @keyframes fadeIn {
   from {
@@ -148,4 +184,82 @@
   to {
     opacity: 1;
   }
+}
+
+@font-face {
+  font-family: Icons;
+  src: url(fonts/icons.eot);
+  src: url(fonts/icons.eot?#iefix) format('embedded-opentype'), url(fonts/icons.woff2) format('woff2'), url(fonts/icons.woff) format('woff'), url(fonts/icons.ttf) format('truetype'), url(fonts/icons.svg#icons) format('svg');
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+}
+i.icon {
+  display: inline-block;
+  opacity: 1;
+  margin: 0 .25rem 0 0;
+  width: 1.18em;
+  height: 1em;
+  font-family: Icons;
+  font-style: normal;
+  font-weight: 400;
+  text-decoration: inherit;
+  text-align: center;
+  font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+i.icon:before {
+  background: 0 0 !important;
+}
+i.icon.loading {
+  height: 1em;
+  line-height: 1;
+  -webkit-animation: icon-loading 2s linear infinite;
+  animation: icon-loading 2s linear infinite;
+}
+@-webkit-keyframes icon-loading {
+  from {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes icon-loading {
+  from {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+i.emphasized.icon,
+i.icon.active,
+i.icon.hover {
+  opacity: 1 !important;
+}
+i.disabled.icon {
+  opacity: 0.45 !important;
+}
+i.icon.angle.left:before {
+  content: "\f104";
+}
+i.icon.angle.right:before {
+  content: "\f105";
+}
+i.icon.smile:before {
+  content: "\f118";
+}
+i.icon.frown:before {
+  content: "\f119";
+}
+i.icon.meh:before {
+  content: "\f11a";
 }
