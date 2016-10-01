@@ -19,13 +19,15 @@ export default class Task {
     /**
      *
      * @param parentHandlers
+     * @param possibilityActions
      */
-    constructor(parentHandlers) {
-        this.parentHandlers = parentHandlers;
-
+    constructor(parentHandlers, possibilityActions) {
         this._id = null;
         this._task = null;
         this._data = null;
+
+        this.parentHandlers = parentHandlers;
+        this._possibilityActions = possibilityActions;
     };
 
 
@@ -47,11 +49,12 @@ export default class Task {
      *
      */
     delete() {
-        Storage.deleteById(this._id);
-        this._task.parentNode.removeChild(this._task);
         this.parentHandlers.onDelete(this._data.isDone);
+        this._task.parentNode.removeChild(this._task);
+        Storage.deleteById(this._id);
         return this;
     };
+
 
 
     /**
@@ -77,12 +80,18 @@ export default class Task {
         if (isDone) {
             this._task.classList.add('is-done');
         }
+        else if(!this._possibilityActions) {
+            this._task.classList.add('is-not-done');
+        }
 
-        this._task.addEventListener('click', (event) => {
-            this._changeState(event.target);
-        });
+        // SET EVENTS
+        if(this._possibilityActions) {
+            this._task.addEventListener('click', (event) => {
+                this._changeState(event.target);
+            });
+            this._createButtonDelete();
+        }
 
-        this._createButtonDelete();
     };
 
 
@@ -116,10 +125,12 @@ export default class Task {
 
         Storage.getById(this._id, (item) => {
             item.isDone = !item.isDone;
+            this._data.isDone = item.isDone;
             Storage.updateById(this._id, item);
             this.parentHandlers.onChange(item.isDone);
         });
     };
+
 
 
 }

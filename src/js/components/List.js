@@ -8,6 +8,7 @@
 
 
 import Storage from './../storage/Storage';
+import Calendar from './Calendar';
 import Task from './Task';
 
 
@@ -68,10 +69,7 @@ export default class List {
      * @returns {List}
      */
     addItem(object) {
-        Storage.createItem({
-            title: object.title,
-            isDone: false
-        }, (id)=> {
+        Storage.createItem(object, (id)=> {
             this._createItem(id, object);
             this._renderStats();
             this._toggleVisibleEmptyMessage();
@@ -80,6 +78,7 @@ export default class List {
 
         return this;
     }
+
 
 
     /**
@@ -117,7 +116,7 @@ export default class List {
                 self._renderStats();
                 self._toggleVisibleEmptyMessage();
             }
-        });
+        }, Calendar.checkPossibilityActions());
     }
 
 

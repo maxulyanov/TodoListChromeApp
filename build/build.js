@@ -48,7 +48,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     appAddDOM.addEventListener('submit', function (event) {
         event.preventDefault();
         list.addItem({
-            title: appCreateFieldDOM.value
+            title: appCreateFieldDOM.value,
+            isDone: false
         });
         appCreateFieldDOM.value = '';
     });
@@ -65,6 +66,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
         window[_config2.default.currentDate] = calendar.createKeyForStorage();
         calendar.render();
         _Storage2.default.createStructure();
+
+        appAddDOM.style.display = _Calendar2.default.checkPossibilityActions() == true ? 'block' : 'none';
 
         appListDOM.innerHTML = '';
         list = new _List2.default(appListDOM);
@@ -87,7 +90,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * Time: 0:07
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */
 
-var _Utils = require('./../libs/Utils/');
+var _config = require('./../config');
+
+var _config2 = _interopRequireDefault(_config);
+
+var _Utils = require('./../libs/Utils');
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
@@ -128,11 +135,11 @@ var Calendar = function () {
         key: 'render',
         value: function render() {
             if (this._created) {
-                var _Calendar$format = Calendar.format(this._date);
+                var _Calendar$getObjectDa = Calendar.getObjectDate(this._date);
 
-                var day = _Calendar$format.day;
-                var month = _Calendar$format.month;
-                var year = _Calendar$format.year;
+                var day = _Calendar$getObjectDa.day;
+                var month = _Calendar$getObjectDa.month;
+                var year = _Calendar$getObjectDa.year;
 
                 this._weekdayDOM.innerHTML = this.getWeekdays();
                 this._dateDOM.innerHTML = day + '.' + month + '.' + year;
@@ -185,13 +192,7 @@ var Calendar = function () {
     }, {
         key: 'createKeyForStorage',
         value: function createKeyForStorage() {
-            var _Calendar$format2 = Calendar.format(this._date);
-
-            var day = _Calendar$format2.day;
-            var month = _Calendar$format2.month;
-            var year = _Calendar$format2.year;
-
-            return day + '.' + month + '.' + year;
+            return Calendar.getStringDate(Calendar.getObjectDate(this._date));
         }
 
         /**
@@ -242,13 +243,29 @@ var Calendar = function () {
 
         /**
          *
+         * @param object
+         * @returns {string}
+         */
+
+    }], [{
+        key: 'getStringDate',
+        value: function getStringDate(object) {
+            var day = object.day;
+            var month = object.month;
+            var year = object.year;
+
+            return month + '.' + day + '.' + year;
+        }
+
+        /**
+         *
          * @param date
          * @returns {{day: number, month: number, year: number}}
          */
 
-    }], [{
-        key: 'format',
-        value: function format(date) {
+    }, {
+        key: 'getObjectDate',
+        value: function getObjectDate(date) {
             var day = date.getDate();
             if (day < 10) {
                 day = '0' + day;
@@ -263,6 +280,19 @@ var Calendar = function () {
 
             return { day: day, month: month, year: year };
         }
+
+        /**
+         *
+         * @returns {boolean}
+         */
+
+    }, {
+        key: 'checkPossibilityActions',
+        value: function checkPossibilityActions() {
+            var date = new Date();
+            date.setHours(0, 0, 0, 0);
+            return Number(new Date(window[_config2.default.currentDate])) >= Number(date);
+        }
     }]);
 
     return Calendar;
@@ -270,7 +300,7 @@ var Calendar = function () {
 
 exports.default = Calendar;
 
-},{"./../libs/Utils/":6}],3:[function(require,module,exports){
+},{"./../config":5,"./../libs/Utils":6}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -288,6 +318,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _Storage = require('./../storage/Storage');
 
 var _Storage2 = _interopRequireDefault(_Storage);
+
+var _Calendar = require('./Calendar');
+
+var _Calendar2 = _interopRequireDefault(_Calendar);
 
 var _Task = require('./Task');
 
@@ -362,10 +396,7 @@ var List = function () {
         value: function addItem(object) {
             var _this2 = this;
 
-            _Storage2.default.createItem({
-                title: object.title,
-                isDone: false
-            }, function (id) {
+            _Storage2.default.createItem(object, function (id) {
                 _this2._createItem(id, object);
                 _this2._renderStats();
                 _this2._toggleVisibleEmptyMessage();
@@ -415,7 +446,7 @@ var List = function () {
                     self._renderStats();
                     self._toggleVisibleEmptyMessage();
                 }
-            });
+            }, _Calendar2.default.checkPossibilityActions());
         }
 
         /**
@@ -475,7 +506,7 @@ var List = function () {
 
 exports.default = List;
 
-},{"./../storage/Storage":7,"./Task":4}],4:[function(require,module,exports){
+},{"./../storage/Storage":7,"./Calendar":2,"./Task":4}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -505,15 +536,17 @@ var Task = function () {
     /**
      *
      * @param parentHandlers
+     * @param possibilityActions
      */
-    function Task(parentHandlers) {
+    function Task(parentHandlers, possibilityActions) {
         _classCallCheck(this, Task);
-
-        this.parentHandlers = parentHandlers;
 
         this._id = null;
         this._task = null;
         this._data = null;
+
+        this.parentHandlers = parentHandlers;
+        this._possibilityActions = possibilityActions;
     }
 
     _createClass(Task, [{
@@ -540,9 +573,9 @@ var Task = function () {
          *
          */
         value: function _delete() {
-            _Storage2.default.deleteById(this._id);
-            this._task.parentNode.removeChild(this._task);
             this.parentHandlers.onDelete(this._data.isDone);
+            this._task.parentNode.removeChild(this._task);
+            _Storage2.default.deleteById(this._id);
             return this;
         }
     }, {
@@ -576,13 +609,17 @@ var Task = function () {
 
             if (isDone) {
                 this._task.classList.add('is-done');
+            } else if (!this._possibilityActions) {
+                this._task.classList.add('is-not-done');
             }
 
-            this._task.addEventListener('click', function (event) {
-                _this._changeState(event.target);
-            });
-
-            this._createButtonDelete();
+            // SET EVENTS
+            if (this._possibilityActions) {
+                this._task.addEventListener('click', function (event) {
+                    _this._changeState(event.target);
+                });
+                this._createButtonDelete();
+            }
         }
     }, {
         key: '_createButtonDelete',
@@ -624,6 +661,7 @@ var Task = function () {
 
             _Storage2.default.getById(this._id, function (item) {
                 item.isDone = !item.isDone;
+                _this3._data.isDone = item.isDone;
                 _Storage2.default.updateById(_this3._id, item);
                 _this3.parentHandlers.onChange(item.isDone);
             });
@@ -794,10 +832,11 @@ var Storage = function () {
 
         /**
          *
-         * @returns {string}
+         * @returns {number}
          */
         value: function generateId() {
-            return '_' + Math.random().toString(36).substr(2, 15);
+            return Number(new Date());
+            // return '_' + Math.random().toString(36).substr(2, 15);
         }
 
         /**

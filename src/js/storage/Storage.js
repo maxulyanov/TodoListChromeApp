@@ -19,10 +19,11 @@ export default class Storage {
 
     /**
      *
-     * @returns {string}
+     * @returns {number}
      */
     static generateId() {
-        return '_' + Math.random().toString(36).substr(2, 15);
+        return Number(new Date());
+        // return '_' + Math.random().toString(36).substr(2, 15);
     }
 
 

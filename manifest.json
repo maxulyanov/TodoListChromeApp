@@ -1,6 +1,6 @@
 {
   "name": "Todo List",
-  "description": "description..",
+  "description": "Task Manager in a browser. Be more productive",
   "version": "0.1",
 
   "permissions": [
@@ -8,9 +8,15 @@
     "unlimitedStorage"
   ],
 
+"icons": {
+    "16": "build/icons/16.png",
+    "32": "build/icons/32.png",
+    "48": "build/icons/48.png",
+    "64": "build/icons/64.png"
+},
 
   "browser_action": {
-    "default_icon": "build/img/icon.png",
+    "default_icon": "build/icons/19.png",
     "default_title": "Todo List",
     "default_popup": "app.html"
   },

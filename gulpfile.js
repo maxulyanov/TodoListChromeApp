@@ -35,6 +35,7 @@ const source = {
     js: './src/js/',
     styles: './src/styles/',
     img: './src/img/',
+    icons: './src/icons/',
     fonts: './src/fonts/'
 }
 
@@ -42,8 +43,9 @@ const source = {
 // Patterns files
 const patterns = {
     js: source.js + '/**/*.js',
-    styles: source.styles + '/**/*.less',
+    styles: source.styles + '*.less',
     img: source.img + '*.*',
+    icons: source.icons + '*.*',
     fonts: source.fonts + '*.*'
 };
 
@@ -61,7 +63,7 @@ const build = {
 // Styles
 gulp.task('build:styles', function () {
     return gulp.src(patterns.styles) // {since: gulp.lastRun('build:styles')
-        .pipe(cache('less'))
+        // .pipe(cache('less'))
         .pipe(less())
         .pipe(gulpIf(isDevelopment, debug({title: 'less -> css'})))
         .pipe(autoprefixer())
@@ -89,6 +91,13 @@ gulp.task('build:img', function () {
 });
 
 
+// icons
+gulp.task('build:icons', function () {
+    return gulp.src([patterns.icons])
+        .pipe(gulp.dest(build.folder + 'icons'))
+});
+
+
 // Fonts
 gulp.task('build:fonts', function () {
     return gulp.src([patterns.fonts])
@@ -108,6 +117,7 @@ gulp.task('build',
         'build:clean',
         'build:js',
         'build:styles',
+        'build:icons',
         'build:img',
         'build:fonts'
     ));

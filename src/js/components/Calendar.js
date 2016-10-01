@@ -7,7 +7,8 @@
  */
 
 
-import Utils from './../libs/Utils/';
+import config from './../config';
+import Utils from './../libs/Utils';
 
 
 'use strict';
@@ -40,7 +41,7 @@ export default class Calendar {
      */
     render() {
         if (this._created) {
-            let {day, month, year} = Calendar.format(this._date);
+            let {day, month, year} = Calendar.getObjectDate(this._date);
             this._weekdayDOM.innerHTML = this.getWeekdays();
             this._dateDOM.innerHTML = `${day}.${month}.${year}`;
         }
@@ -88,8 +89,7 @@ export default class Calendar {
      * @returns {string}
      */
     createKeyForStorage() {
-        let {day, month, year} = Calendar.format(this._date);
-        return `${day}.${month}.${year}`;
+        return Calendar.getStringDate(Calendar.getObjectDate(this._date));
     }
 
 
@@ -140,10 +140,21 @@ export default class Calendar {
 
     /**
      *
+     * @param object
+     * @returns {string}
+     */
+    static getStringDate(object) {
+        let {day, month, year} = object;
+        return `${month}.${day}.${year}`;
+    }
+
+
+    /**
+     *
      * @param date
      * @returns {{day: number, month: number, year: number}}
      */
-    static format(date) {
+    static getObjectDate(date) {
         let day = date.getDate();
         if (day < 10) {
             day = '0' + day;
@@ -156,9 +167,20 @@ export default class Calendar {
 
         let year = date.getFullYear();
 
-
         return {day, month, year}
     }
+
+
+    /**
+     *
+     * @returns {boolean}
+     */
+    static checkPossibilityActions() {
+        let date = new Date();
+        date.setHours(0, 0, 0, 0);
+        return Number(new Date(window[config.currentDate])) >= Number(date);
+    }
+
 
 
 }

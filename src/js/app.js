@@ -39,7 +39,8 @@ import Storage from './storage/Storage';
     appAddDOM.addEventListener('submit', (event) => {
         event.preventDefault();
         list.addItem({
-            title: appCreateFieldDOM.value
+            title: appCreateFieldDOM.value,
+            isDone: false
         });
         appCreateFieldDOM.value = '';
     });
@@ -60,6 +61,8 @@ import Storage from './storage/Storage';
         window[config.currentDate] = calendar.createKeyForStorage();
         calendar.render();
         Storage.createStructure();
+
+        appAddDOM.style.display = Calendar.checkPossibilityActions() == true ? 'block' : 'none';
 
         appListDOM.innerHTML = '';
         list = new List(appListDOM);
