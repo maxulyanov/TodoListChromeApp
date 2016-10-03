@@ -12,7 +12,8 @@
     "16": "build/icons/16.png",
     "32": "build/icons/32.png",
     "48": "build/icons/48.png",
-    "64": "build/icons/64.png"
+    "64": "build/icons/64.png",
+    "128": "build/icons/128.png"
 },
 
   "browser_action": {
